@@ -1,16 +1,35 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as path from 'path';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as ecr from 'aws-cdk-lib/aws-ecr';
+import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
+import * as ecrdeploy from 'cdk-ecr-deployment';
 
 export class ExampleAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const bucket = new s3.Bucket(this, 'ExampleBucket', {});
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'ExampleAppQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const repository = new ecr.Repository(this, 'ExampleRepository', {});
+
+    const asset = new DockerImageAsset(this, 'ExampleBuildImage', {
+      directory: path.join(__dirname, 'example-image'),
+    });
+
+    let tag = asset.imageUri;
+    let index = tag.indexOf(':');
+    tag = tag.slice(index+1);
+    console.log(tag);
+    console.log('hello world')
+
+    new ecrdeploy.ECRDeployment(this, 'ExampleDeploy1', {
+      src: new ecrdeploy.DockerImageName(asset.imageUri),
+      dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate`),
+    });
+    
+
+    
   }
 }
