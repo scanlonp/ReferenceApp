@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import { CodeBuildStep, CodePipelineSource, CodePipeline } from 'aws-cdk-lib/pipelines';
+import { ExamplePipelineStage } from './pipeline-stage';
 import { Construct } from 'constructs';
 
 export class ExamplePipelineStack extends cdk.Stack {
@@ -26,5 +27,7 @@ export class ExamplePipelineStack extends cdk.Stack {
             })
         });
 
+        const deploy = new ExamplePipelineStage(this, 'Deploy');
+        const deployStage = pipeline.addStage(deploy);
     }
 }
