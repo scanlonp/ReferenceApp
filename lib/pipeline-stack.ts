@@ -7,11 +7,9 @@ export class ExamplePipelineStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        // Creates a CodeCommit repository called 'WorkshopRepo'
-        const repo = new codecommit.Repository(this, 'ExampleRepo', {
-            repositoryName: "ExampleRepo"
-        });
-
+        // Creates a CodeCommit repository called 'ExampleRepo'
+        const repo = codecommit.Repository.fromRepositoryName(this, 'ExampleRepo', 'ExampleRepo');
+        
         // Pipeline code goes here
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'ExamplePipeline',
