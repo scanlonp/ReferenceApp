@@ -18,12 +18,6 @@ export class ExampleAppStack extends Stack {
       directory: path.join(__dirname, 'example-image'),
     });
 
-    let tag = asset.imageUri;
-    let index = tag.indexOf(':');
-    tag = tag.slice(index+1);
-    console.log(tag);
-    console.log('hello world')
-
     new ecrdeploy.ECRDeployment(this, 'ExampleDeploy1', {
       src: new ecrdeploy.DockerImageName(asset.imageUri),
       dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate`),
