@@ -23,11 +23,14 @@ export class ExamplePipelineStack extends cdk.Stack {
                     'npm ci',
                     'npm run build',
                     'NO_PREBUILT_LAMBDA=1 npx cdk synth'
-                ]
-            })
+                ],
+            }),
+            
+            // to try to build the ecr deploy lambda at synth time
+            dockerEnabledForSynth: true,
         });
 
-        const deploy = new ExamplePipelineStage(this, 'Deploy', );
+        const deploy = new ExamplePipelineStage(this, 'Deploy');
         const deployStage = pipeline.addStage(deploy);
     }
 }
