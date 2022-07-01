@@ -32,7 +32,7 @@ export class ExamplePipelineStack extends cdk.Stack {
 
         });
 
-        const deploy = new ExamplePipelineStage(this, 'Deploy');
-        const deployStage = pipeline.addStage(deploy);
+        //const deploy = new ExamplePipelineStage(this, 'Deploy');
+        //const deployStage = pipeline.addStage(deploy);
     }
 }
