@@ -5,6 +5,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import * as ecrdeploy from 'cdk-ecr-deployment';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb'
 
 export class ExampleAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -23,7 +24,9 @@ export class ExampleAppStack extends Stack {
       dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate`),
     });
     
-
+    const table = new dynamodb.Table(this, 'ExampleTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+    });
     
   }
 }
