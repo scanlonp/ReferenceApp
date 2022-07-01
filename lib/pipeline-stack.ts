@@ -22,12 +22,12 @@ export class ExamplePipelineStack extends cdk.Stack {
                 commands: [
                     'npm ci',
                     'npm run build',
-                    'npx cdk synth'
+                    'FORCE_PREBUILT_LAMBDA=1 npx cdk synth'
                 ]
             })
         });
 
-        const deploy = new ExamplePipelineStage(this, 'Deploy');
+        const deploy = new ExamplePipelineStage(this, 'Deploy', );
         const deployStage = pipeline.addStage(deploy);
     }
 }
