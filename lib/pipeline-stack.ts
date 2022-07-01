@@ -15,19 +15,21 @@ export class ExamplePipelineStack extends cdk.Stack {
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'ExamplePipeline',
             synth: new CodeBuildStep('SynthStep', {
-                input: CodePipelineSource.codeCommit(repo, 'master'),
+                input: CodePipelineSource.gitHub('scanlonp/ReferenceApp', 'master'),
+                //input: CodePipelineSource.codeCommit(repo, 'master'),
                 installCommands: [
                     'npm install -g aws-cdk'
                 ],
                 commands: [
                     'npm ci',
                     'npm run build',
-                    'NO_PREBUILT_LAMBDA=1 npx cdk synth'
+                    ' npx cdk synth'
                 ],
             }),
             
             // to try to build the ecr deploy lambda at synth time
             dockerEnabledForSynth: true,
+
         });
 
         const deploy = new ExamplePipelineStage(this, 'Deploy');
