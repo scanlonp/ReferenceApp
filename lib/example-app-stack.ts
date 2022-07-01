@@ -21,7 +21,7 @@ export class ExampleAppStack extends Stack {
 
     new ecrdeploy.ECRDeployment(this, 'ExampleDeploy1', {
       src: new ecrdeploy.DockerImageName(asset.imageUri),
-      dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate`),
+      dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate2`),
     });
     
     const table = new dynamodb.Table(this, 'ExampleTable', {

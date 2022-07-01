@@ -22,7 +22,7 @@ export class ExamplePipelineStack extends cdk.Stack {
                 commands: [
                     'npm ci',
                     'npm run build',
-                    'FORCE_PREBUILT_LAMBDA=1 npx cdk synth'
+                    'NO_PREBUILT_LAMBDA=1 npx cdk synth'
                 ]
             })
         });
