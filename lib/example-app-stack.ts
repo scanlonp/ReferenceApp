@@ -20,12 +20,12 @@ export class ExampleAppStack extends Stack {
       directory: path.join(__dirname, 'example-image'),
     });
 
-    /*
+    
     new ecrdeploy.ECRDeployment(this, 'ExampleDeploy1', {
       src: new ecrdeploy.DockerImageName(asset.imageUri),
-      dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:testlate2`),
+      dest: new ecrdeploy.DockerImageName(`111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:test2latest`),
     });
-    */
+    
     
     const table = new dynamodb.Table(this, 'ExampleTable', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
