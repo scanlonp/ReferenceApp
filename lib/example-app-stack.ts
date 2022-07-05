@@ -12,6 +12,7 @@ export class ExampleAppStack extends Stack {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, 'ExampleBucket', {});
+    const bucket2 = new s3.Bucket(this, 'ExampleBucket2', {});
 
     const repository = new ecr.Repository(this, 'ExampleRepository', {});
 
