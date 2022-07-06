@@ -43,6 +43,7 @@ export class ExamplePipelineStack extends cdk.Stack {
         const deploy = new ExamplePipelineStage(this, 'Deploy');
         const deployStage = pipeline.addStage(deploy);
 
+        /*
         pipeline.addWave('MyWave', {
             post: [
               new CodeBuildStep('Docker Run', {
@@ -53,5 +54,6 @@ export class ExamplePipelineStack extends cdk.Stack {
               }),
             ],
           });
+        */
     }
 }
