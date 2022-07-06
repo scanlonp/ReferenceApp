@@ -12,6 +12,8 @@ export class ExamplePipelineStack extends cdk.Stack {
         // Creates a CodeCommit repository called 'ExampleRepo'
         //const repo = codecommit.Repository.fromRepositoryName(this, 'ExampleRepo', 'ExampleRepo');
         
+        const repo = cdk.aws_ecr.Repository.fromRepositoryName(this, 'RunningRepo', 'deployment-test');
+
         // Pipeline code goes here
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'ExamplePipeline',
@@ -27,17 +29,29 @@ export class ExamplePipelineStack extends cdk.Stack {
                 commands: [
                     'npm ci',
                     'npm run build',
-                    ' npx cdk synth'
-                ],
+                    'npx cdk synth'
+                ], 
             }),
             
             
             // to try to build the ecr deploy lambda at synth time
             dockerEnabledForSynth: true,
+            dockerEnabledForSelfMutation: true,
 
         });
 
         const deploy = new ExamplePipelineStage(this, 'Deploy');
         const deployStage = pipeline.addStage(deploy);
+
+        pipeline.addWave('MyWave', {
+            post: [
+              new CodeBuildStep('Docker Run', {
+                commands: ['command-from-image'],
+                buildEnvironment: {
+                  buildImage: cdk.aws_codebuild.LinuxBuildImage.fromEcrRepository(repo, 'latest'), 
+                },
+              }),
+            ],
+          });
     }
 }
