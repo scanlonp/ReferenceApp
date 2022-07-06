@@ -43,17 +43,17 @@ export class ExamplePipelineStack extends cdk.Stack {
         const deploy = new ExamplePipelineStage(this, 'Deploy');
         const deployStage = pipeline.addStage(deploy);
 
-        /*
+        
         pipeline.addWave('MyWave', {
             post: [
-              new CodeBuildStep('Docker Run', {
-                commands: ['command-from-image'],
-                buildEnvironment: {
-                  buildImage: cdk.aws_codebuild.LinuxBuildImage.fromEcrRepository(repo, 'latest'), 
-                },
-              }),
+                new CodeBuildStep('Docker Run', {
+                    commands: ['command-from-image'],
+                    buildEnvironment: {
+                    buildImage: cdk.aws_codebuild.LinuxBuildImage.fromEcrRepository(repo, 'latest'), 
+                    },
+                }),
             ],
-          });
-        */
+        });
+        
     }
 }
