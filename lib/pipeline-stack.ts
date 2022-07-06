@@ -47,7 +47,7 @@ export class ExamplePipelineStack extends cdk.Stack {
         pipeline.addWave('MyWave', {
             post: [
                 new CodeBuildStep('Docker Run', {
-                    commands: ['command-from-image'],
+                    commands: ['docker run 111279636657.dkr.ecr.us-east-1.amazonaws.com/deployment-test:latest'],
                     buildEnvironment: {
                     buildImage: cdk.aws_codebuild.LinuxBuildImage.fromEcrRepository(repo, 'latest'), 
                     },
